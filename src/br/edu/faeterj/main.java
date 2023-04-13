@@ -7,9 +7,8 @@ public class main {
 		Scanner sc = new Scanner(System.in);
 		Calculadora calc = new Calculadora();
 		
-		double valor1 = 0;
+	    double valor1 = 0;
 	    double valor2 = 0;
-	    boolean aux;
 	    String opcao;
 	    
 		System.out.print("\t\tCALCULADORA SIMPLES \n[+]Soma \t\t[-]Subtracao \n[*]Multplicacao \t[/]Divisao\n[1]Seno \t\t[2]Cosseno\n[3]Tangente \n Digite a operacao: ");
