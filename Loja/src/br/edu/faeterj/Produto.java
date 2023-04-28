@@ -1,9 +1,17 @@
 package br.edu.faeterj;
 
 public class Produto {
-	String nome;
-	double valor;
-	int quantidade;
-	String descricao;
-	int codBarra;
+	public String nome;
+	public double valor;
+	public int quant;
+	public String descricao;
+	public String codBarra;
+	
+	public Produto(String nome, double valor, int quant, String descricao, String codBarra){
+		this.nome = nome;
+		this.valor = valor;
+		this.quant = quant;
+		this.descricao = descricao;
+		this.codBarra = codBarra;
+	}
 }
