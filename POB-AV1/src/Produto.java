@@ -1,4 +1,9 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Produto {
     private int id;
@@ -23,20 +28,26 @@ public class Produto {
         this.fabricante = fabricante;
     }
 
+    public void ProdutoRemover(ArrayList<Produto> produtos, int id){
+        Iterator<Produto> iterator = produtos.iterator();
+        while (iterator.hasNext()) {
+            Produto produto = iterator.next();
+            if (produto.getId() == id) {
+                iterator.remove();
+            }
+        }
+    }
+
+    public void ProdutoAlterar(){
+
+    }
+
     public void ProdutoListar(ArrayList<Produto> produtos){
         for (Produto produto: produtos) {
-           System.out.println("Nome: " + produto.getNome() + "\n" + "Descrição " + produto.getDescricao() + "\n" + "Preço por Kg: " + produto.getPreco() + " " + produto.getPeso() + "Kg" + "\n");
+            System.out.println("Nome: " + produto.getNome() + "\n" + "Descrição " + produto.getDescricao() + "\n" + "Preço por Kg: " + produto.getPreco() + " " + produto.getPeso() + "Kg" + "\n");
         }
     }
 
-    public void RemoverListar(ArrayList<Produto> produtos, int id){
-        for (Produto produto: produtos) {
-            if(produto.getId() == id){
-                produtos.remove(produto);
-            }
-
-        }
-    }
     public int getId() {
         return id;
     }
