@@ -38,8 +38,27 @@ public class Produto {
         }
     }
 
-    public void ProdutoAlterar(){
+    public void ProdutoAlterar(ArrayList<Produto> produtos, int id, String novoNome, String novaDescricao, double novoPreco, double
+            novoPeso){
+        for (Produto produto : produtos) {
+            if (produto.getId() == id) {
+                if(novoNome != null){
+                    produto.setNome(novoNome);
+                }
+                if(novaDescricao != null){
+                    produto.setDescricao(novaDescricao);
+                }
 
+                if(novoPreco != 0){
+                    produto.setPreco(novoPreco);
+                }
+
+                if(novoPeso != 0){
+                    produto.setPeso(novoPeso);
+                }
+                break;
+            }
+        }
     }
 
     public void ProdutoListar(ArrayList<Produto> produtos){
