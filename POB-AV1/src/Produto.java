@@ -28,44 +28,6 @@ public class Produto {
         this.fabricante = fabricante;
     }
 
-    public void ProdutoRemover(ArrayList<Produto> produtos, int id){
-        Iterator<Produto> iterator = produtos.iterator();
-        while (iterator.hasNext()) {
-            Produto produto = iterator.next();
-            if (produto.getId() == id) {
-                iterator.remove();
-            }
-        }
-    }
-
-    public void ProdutoAlterar(ArrayList<Produto> produtos, int id, String novoNome, String novaDescricao, double novoPreco, double
-            novoPeso){
-        for (Produto produto : produtos) {
-            if (produto.getId() == id) {
-                if(novoNome != null){
-                    produto.setNome(novoNome);
-                }
-                if(novaDescricao != null){
-                    produto.setDescricao(novaDescricao);
-                }
-
-                if(novoPreco != 0){
-                    produto.setPreco(novoPreco);
-                }
-
-                if(novoPeso != 0){
-                    produto.setPeso(novoPeso);
-                }
-                break;
-            }
-        }
-    }
-
-    public void ProdutoListar(ArrayList<Produto> produtos){
-        for (Produto produto: produtos) {
-            System.out.println("Nome: " + produto.getNome() + "\n" + "Descrição " + produto.getDescricao() + "\n" + "Preço por Kg: " + produto.getPreco() + " " + produto.getPeso() + "Kg" + "\n");
-        }
-    }
 
     public int getId() {
         return id;
