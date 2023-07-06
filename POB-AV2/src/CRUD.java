@@ -49,10 +49,14 @@ public class CRUD {
             }
         }
 
-        public static void ClienteListar(ArrayList<Cliente> clientes){
-            for (Cliente produto: clientes) {
-                System.out.println("Nome: " + produto.getNome() + "\n" + "Descrição " + produto.getDescricao() + "\n" + "Preço por Kg: " + produto.getPreco() + " " + produto.getPeso() + "Kg" + "\n");
-            }
+    }
+
+    public static void ClienteListar(ArrayList<Cliente> clientes){
+        for (Cliente cliente: clientes) {
+            System.out.println("Nome: " + cliente.getNome() + "\n" + "Endereço " + cliente.getEndereco() + "\n" +
+                    "Código Postal: " + cliente.getPostalCode() + "\n" + "País: " + cliente.getPais() + "\n" +
+                    "CPF" + cliente.getCpf() + "\n" + "Passaporte: " + cliente.getPassaporte() + "\n" +
+                    "Data de Nascimento" + cliente.getDtNascimento());
         }
     }
 }

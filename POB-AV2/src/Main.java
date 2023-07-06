@@ -59,7 +59,7 @@ public class Main {
                     CRUD.ClienteAlterar(clientes,id,nome,endereco,postalCode,pais,cpf,passaporte,dtNascimento);
                     break;
                 case 4:
-                    CRUD.Cl(clientes);
+                    CRUD.ClienteListar(clientes);
                     break;
                 default:
                     break;
