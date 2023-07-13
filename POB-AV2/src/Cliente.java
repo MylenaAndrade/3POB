@@ -50,11 +50,10 @@ public class Cliente {
         return dtNascimento;
     }
 
+    //SETTERS
     public void setId(int id) {
         this.id = id;
     }
-
-    //SETTERS
     public void setNome(String nome) {
         this.nome = nome;
     }
