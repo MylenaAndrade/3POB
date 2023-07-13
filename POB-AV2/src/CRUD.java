@@ -1,6 +1,7 @@
 import conexao.conexao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -86,12 +87,44 @@ public class CRUD {
 
     }
 
-    public static void ClienteListar(ArrayList<Cliente> clientes){
-        for (Cliente cliente: clientes) {
-            System.out.println("Nome: " + cliente.getNome() + "\n" + "Endereço " + cliente.getEndereco() + "\n" +
-                    "Código Postal: " + cliente.getPostalCode() + "\n" + "País: " + cliente.getPais() + "\n" +
-                    "CPF" + cliente.getCpf() + "\n" + "Passaporte: " + cliente.getPassaporte() + "\n" +
-                    "Data de Nascimento" + cliente.getDtNascimento());
+    public void ClienteListar(int id) {
+        CRUD crud = new CRUD();
+        Cliente cliente = crud.buscarCliente(id);
+
+        System.out.println("Nome: " + cliente.getNome() + "\n" + "Endereço: " + cliente.getEndereco() + "\n" +
+                "Código Postal: " + cliente.getPostalCode() + "\n" + "País: " + cliente.getPais() + "\n" +
+                "CPF: " + cliente.getCpf() + "\n" + "Passaporte: " + cliente.getPassaporte() + "\n" +
+                "Data de Nascimento: " + cliente.getDtNascimento() + "\n");
+    }
+
+
+
+
+    public Cliente buscarCliente(int id) {
+        Cliente cliente = null;
+        try {
+            String sql = "SELECT * FROM Clientes WHERE id = ?";
+            PreparedStatement ps = null;
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String nome = (rs.getString("nome"));
+                String endereco = (rs.getString("endereco"));
+                String postalCode = (rs.getString("postalCode"));
+                String pais = (rs.getString("pais"));
+                String cpf = (rs.getString("cpf"));
+                String passaporte = (rs.getString("passaporte"));
+                String email = (rs.getString("email"));
+                String dtNascimento = (rs.getString("dtNascimento"));
+
+                cliente = new Cliente(nome, endereco, postalCode, pais, cpf, passaporte, email, dtNascimento);
+            }
+            return cliente;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
