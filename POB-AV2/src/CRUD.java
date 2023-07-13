@@ -298,5 +298,107 @@ public class CRUD {
             return null;
         }
     }
+
+    //RESERVA
+    public void ReservaInserir(Reserva reserva) {
+        String sql = "INSERT INTO reservas (idQuarto,idCama,idCliente,dtEntrada,dtSaida) VALUES(?,?,?,?,?)";
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setInt(1, reserva.getIdQuarto());
+            ps.setInt(2, reserva.getIdCama());
+            ps.setInt(3, reserva.getIdCliente());
+            ps.setString(4, reserva.getDtEntrada());
+            ps.setString(5, reserva.getDtSaida());
+
+            ps.execute();
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    public void ReservaRemover(int id) {
+        String sql = "DELETE FROM reservas WHERE ID = ?";
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+    public void ReservaAlterar(int id, String novo, String nomeColuna){
+        String sql = "UPDATE reservas SET " + nomeColuna + " = ? WHERE id = ?";
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conexao.getConexao().prepareStatement(sql);
+            if(nomeColuna.equals("idQuarto")){
+                ps.setInt(1, Integer.parseInt(novo));
+            }else if(nomeColuna.equals("idCama")) {
+                ps.setInt(1, Integer.parseInt(novo));
+            }else if(nomeColuna.equals("idCliente")) {
+                ps.setInt(1, Integer.parseInt(novo));
+            }else{
+                ps.setString(1, novo);
+            }
+
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    public void ReservaListar(int id) {
+        CRUD crud = new CRUD();
+        Reserva reserva = crud.ReservaBuscar(id);
+
+        System.out.println("ID do Quarto: " + reserva.getIdQuarto() + "\n" + "ID da Cama: " +
+                reserva.getIdCama() + "\n" + "ID do Cliente: " + reserva.getIdCliente() + "\n" + "Data de Entrada: "
+                + reserva.getDtEntrada() + "\n" + "Data de Saída: " + reserva.getDtSaida() + "\n");
+    }
+    public Reserva ReservaBuscar(int id) {
+        Reserva reserva = null;
+        try {
+            String sql = "SELECT * FROM reservas WHERE id = ?";
+            PreparedStatement ps = null;
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int idQuarto = (rs.getInt("idQuarto"));
+                int idCama = (rs.getInt("idCama"));
+                int idCliente = (rs.getInt("idCliente"));
+                String dtEntrada = (rs.getString("dtEntrada"));
+                String dtSaida = (rs.getString("dtSaida"));
+
+                reserva = new Reserva(idQuarto,idCama,idCliente,dtEntrada,dtSaida);
+            }
+            return reserva;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 

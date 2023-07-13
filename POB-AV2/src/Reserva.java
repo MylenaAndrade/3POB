@@ -6,8 +6,7 @@ public class Reserva {
     private String dtEntrada;
     private String dtSaida;
 
-    public Reserva(int id, int idQuarto, int idCama, int idCliente, String dtEntrada, String dtSaida){
-        this.id = id;
+    public Reserva(int idQuarto, int idCama, int idCliente, String dtEntrada, String dtSaida){
         this.idQuarto = idQuarto;
         this.idCama = idCama;
         this.idCliente = idCliente;
