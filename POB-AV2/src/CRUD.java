@@ -68,7 +68,6 @@ public class CRUD {
 
 
     }
-
     public void ClienteListar(int id) {
         CRUD crud = new CRUD();
         Cliente cliente = crud.buscarCliente(id);
@@ -106,6 +105,102 @@ public class CRUD {
         }
     }
 
-    //
+    //QUARTO
+    public void QuartoInserir(Quarto quarto) {
+        String sql = "INSERT INTO quartos (nome,qtdeCamas,temBanheiro,descricao) VALUES(?,?,?,?)";
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setString(1, quarto.getNomeQuarto());
+            ps.setInt(2, quarto.getQtdeCamas());
+            ps.setBoolean(3, quarto.isTemBanheiro());
+            ps.setString(4, quarto.getDescricao());
+
+            ps.execute();
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    public void QuartoRemover(int id) {
+        String sql = "DELETE FROM quartos WHERE ID = ?";
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+    public void QuartoAlterar(int id, String novo, String nomeColuna){
+        String sql = "UPDATE quartos SET " + nomeColuna + " = ? WHERE id = ?";
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conexao.getConexao().prepareStatement(sql);
+            if(nomeColuna.equals("qtdeCamas")){
+                ps.setInt(1, Integer.parseInt(novo));
+            }else if(nomeColuna.equals("temBanheiro")){
+                ps.setBoolean(1, Boolean.getBoolean(novo));
+            }else{
+                ps.setString(1, novo);
+            }
+
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    public void QuartoListar(int id) {
+        CRUD crud = new CRUD();
+        Quarto quarto = crud.QuartoBuscar(id);
+
+        System.out.println("Nome do Quarto: " + quarto.getNomeQuarto() + "\n" + "Quantidade de camas: " +
+                quarto.getQtdeCamas() + "\n" + "Tem Banheiro?: " + quarto.isTemBanheiro() + "\n" + "Descrição: "
+                + quarto.getDescricao() + "\n");
+    }
+    public Quarto QuartoBuscar(int id) {
+        Quarto quarto = null;
+        try {
+            String sql = "SELECT * FROM quartos WHERE id = ?";
+            PreparedStatement ps = null;
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String nomeQuarto = (rs.getString("nome"));
+                int qtdeCamas = (rs.getInt("qtdeCamas"));
+                Boolean temBanheiro = (rs.getBoolean("temBanheiro"));
+                String descricao = (rs.getString("descricao"));
+
+                quarto = new Quarto(nomeQuarto, qtdeCamas, temBanheiro, descricao);
+            }
+            return quarto;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 

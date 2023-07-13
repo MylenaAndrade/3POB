@@ -4,8 +4,7 @@ public class Quarto {
     private int qtdeCamas;
     private boolean temBanheiro;
     private String descricao;
-    public Quarto(int id, String nomeQuarto, int qtdeCamas, boolean temBanheiro, String descricao){
-        this.id = id;
+    public Quarto(String nomeQuarto, int qtdeCamas, boolean temBanheiro, String descricao){
         this.nomeQuarto = nomeQuarto;
         this.qtdeCamas = qtdeCamas;
         this.temBanheiro = temBanheiro;
