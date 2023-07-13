@@ -202,5 +202,101 @@ public class CRUD {
             return null;
         }
     }
+
+    //CAMA
+    public void CamaInserir(Cama cama) {
+        String sql = "INSERT INTO camas (codigoCama,ehBeliche,posicao,descricao) VALUES(?,?,?,?)";
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setString(1, cama.getCodigoCama());
+            ps.setBoolean(2, cama.isEhBeliche());
+            ps.setString(3, cama.getPosicao());
+            ps.setString(4, cama.getDescricao());
+
+            ps.execute();
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    public void CamaRemover(int id) {
+        String sql = "DELETE FROM camas WHERE ID = ?";
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+    public void CamaAlterar(int id, String novo, String nomeColuna){
+        String sql = "UPDATE camas SET " + nomeColuna + " = ? WHERE id = ?";
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conexao.getConexao().prepareStatement(sql);
+            if(nomeColuna.equals("ehBeliche")){
+                ps.setBoolean(1, Boolean.getBoolean(novo));
+            }else{
+                ps.setString(1, novo);
+            }
+
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    public void CamaListar(int id) {
+        CRUD crud = new CRUD();
+        Cama cama = crud.CamaBuscar(id);
+
+        System.out.println("Código da Cama: " + cama.getCodigoCama() + "\n" + "É beliche? : " +
+                cama.isEhBeliche() + "\n" + "Posição: " + cama.getPosicao() + "\n" + "Descrição: "
+                + cama.getDescricao() + "\n");
+    }
+    public Cama CamaBuscar(int id) {
+        Cama cama = null;
+        try {
+            String sql = "SELECT * FROM camas WHERE id = ?";
+            PreparedStatement ps = null;
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String codigoCama = (rs.getString("codigoCama"));
+                boolean ehbeliche = (rs.getBoolean("ehbeliche"));
+                String posicao = (rs.getString("posicao"));
+                String descricao = (rs.getString("descricao"));
+
+                cama = new Cama(codigoCama, ehbeliche, posicao, descricao);
+            }
+            return cama;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 

@@ -5,8 +5,7 @@ public class Cama {
     private String posicao;
     private String descricao;
 
-    public Cama(int id, String codigoCama, boolean ehBeliche, String posicao, String descricao){
-        this.id = id;
+    public Cama(String codigoCama, boolean ehBeliche, String posicao, String descricao){
         this.codigoCama = codigoCama;
         this.ehBeliche = ehBeliche;
         this.posicao = posicao;
