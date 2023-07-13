@@ -6,9 +6,10 @@ public class Cliente {
     private String pais;
     private String cpf;
     private String passaporte;
+    private String email;
     private String dtNascimento;
 
-    public Cliente(int id, String nome, String endereco, String postalCode, String pais, String cpf , String passaporte, String dtNascimento){
+    public Cliente(String nome, String endereco, String postalCode, String pais, String cpf , String passaporte, String email,String dtNascimento){
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
@@ -16,6 +17,7 @@ public class Cliente {
         this.pais = pais;
         this.cpf = cpf;
         this.passaporte = passaporte;
+        this.email = email;
         this.dtNascimento = dtNascimento;
     }
 
@@ -73,6 +75,14 @@ public class Cliente {
 
     public void setPassaporte(String passaporte) {
         this.passaporte = passaporte;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getDtNascimento() {
