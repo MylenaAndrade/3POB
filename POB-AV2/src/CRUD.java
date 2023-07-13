@@ -4,9 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class CRUD {
+    //CLIENTE
     public void ClienteInserir(Cliente cliente) {
         String sql = "INSERT INTO CLIENTES (nome, endereco, postalCode,pais, cpf,passaporte,email,dtNascimento) VALUES(?,?,?,?,?,?,?,?)";
 
@@ -50,9 +50,7 @@ public class CRUD {
         }
 
     }
-
-    public static void ClienteAlterar(ArrayList<Cliente> clientes, int id, String novoNome, String novoEndereco, String novoPostalCode, String novoPais, String
-            novoCPF, String novoPassaporte, String novadtNascimento){
+    public static void ClienteAlterar(int id, Cliente cliente){
         String nulo = "null";
         for (Cliente produto : clientes) {
             if (produto.getId() == id) {
@@ -86,7 +84,6 @@ public class CRUD {
         }
 
     }
-
     public void ClienteListar(int id) {
         CRUD crud = new CRUD();
         Cliente cliente = crud.buscarCliente(id);
@@ -96,10 +93,6 @@ public class CRUD {
                 "CPF: " + cliente.getCpf() + "\n" + "Passaporte: " + cliente.getPassaporte() + "\n" +
                 "Data de Nascimento: " + cliente.getDtNascimento() + "\n");
     }
-
-
-
-
     public Cliente buscarCliente(int id) {
         Cliente cliente = null;
         try {
@@ -127,4 +120,7 @@ public class CRUD {
             return null;
         }
     }
+
+    //
 }
+
