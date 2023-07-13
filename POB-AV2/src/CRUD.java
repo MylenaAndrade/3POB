@@ -31,14 +31,23 @@ public class CRUD {
 
 
     }
-    public static void ClienteRemover(ArrayList<Cliente> clientes, int id){
-        Iterator<Cliente> iterator = clientes.iterator();
-        while (iterator.hasNext()) {
-            Cliente cliente = iterator.next();
-            if (cliente.getId() == id) {
-                iterator.remove();
-            }
+    public void ClienteRemover(int id) {
+        String sql = "DELETE FROM CLIENTES WHERE ID = ?";
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
         }
+
     }
 
     public static void ClienteAlterar(ArrayList<Cliente> clientes, int id, String novoNome, String novoEndereco, String novoPostalCode, String novoPais, String
@@ -86,6 +95,3 @@ public class CRUD {
         }
     }
 }
-
-
-
