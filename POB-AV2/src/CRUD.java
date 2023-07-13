@@ -3,7 +3,6 @@ import conexao.conexao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class CRUD {
     //CLIENTE
@@ -50,40 +49,26 @@ public class CRUD {
         }
 
     }
-    public static void ClienteAlterar(int id, Cliente cliente){
-        String nulo = "null";
-        for (Cliente produto : clientes) {
-            if (produto.getId() == id) {
-                if(!novoNome.equals(nulo)){
-                    produto.setNome(novoNome);
-                }
-                if(!novoEndereco.equals(nulo)){
-                    produto.setEndereco(novoEndereco);
-                }
+    public static void ClienteAlterar(int id, String novo, String nomeColuna){
+        String sql = "UPDATE clientes SET " + nomeColuna + " = ? WHERE id = ?";
 
-                if(!novoPostalCode.equals(nulo)){
-                    produto.setPostalCode(novoPostalCode);
-                }
+        PreparedStatement ps = null;
 
-                if(!novoPais.equals(nulo)){
-                    produto.setPais(novoPais);
-                }
+        try {
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setString(1, novo);
+            ps.setInt(2, id);
 
-                if(!novoCPF.equals(nulo)){
-                    produto.setCpf(novoCPF);
-                }
+            ps.executeUpdate();
+            ps.close();
 
-                if(!novoPassaporte.equals(nulo)){
-                    produto.setPassaporte(novoPassaporte);
-                }
-                if(!novadtNascimento.equals(nulo)){
-                    produto.setCpf(novadtNascimento);
-                }
-                break;
-            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
+
     }
+
     public void ClienteListar(int id) {
         CRUD crud = new CRUD();
         Cliente cliente = crud.buscarCliente(id);
