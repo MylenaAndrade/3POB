@@ -1,9 +1,35 @@
+import conexao.conexao;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class CRUD {
-    public static void ClienteInserir(ArrayList<Cliente> clientes, Cliente cliente){
-        clientes.add(cliente);
+    public void ClienteInserir(Cliente cliente) {
+        String sql = "INSERT INTO CLIENTES (nome, endereco, postalCode,pais, cpf,passaporte,email,dtNascimento) VALUES(?,?,?,?,?,?,?,?)";
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setString(1, cliente.getNome());
+            ps.setString(2, cliente.getEndereco());
+            ps.setString(3, cliente.getPostalCode());
+            ps.setString(4, cliente.getPais());
+            ps.setString(5, cliente.getCpf());
+            ps.setString(6, cliente.getPassaporte());
+            ps.setString(7, cliente.getEmail());
+            ps.setString(8, cliente.getDtNascimento());
+
+            ps.execute();
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
     public static void ClienteRemover(ArrayList<Cliente> clientes, int id){
         Iterator<Cliente> iterator = clientes.iterator();
@@ -60,3 +86,6 @@ public class CRUD {
         }
     }
 }
+
+
+
